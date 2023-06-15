@@ -12,7 +12,6 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/prebid/prebid-server/adapters"
@@ -93,10 +92,11 @@ type seatResponseExtra struct {
 }
 
 type bidResponseWrapper struct {
-	adapterSeatBids []*entities.PbsOrtbSeatBid
-	adapterExtra    *seatResponseExtra
-	bidder          openrtb_ext.BidderName
-	adapter         openrtb_ext.BidderName
+	adapterSeatBids         []*entities.PbsOrtbSeatBid
+	adapterExtra            *seatResponseExtra
+	bidder                  openrtb_ext.BidderName
+	adapter                 openrtb_ext.BidderName
+	bidderResponseStartTime time.Time
 }
 
 type BidIDGenerator interface {
@@ -670,11 +670,7 @@ func (e *exchange) getAllBids(
 
 	e.me.RecordOverheadTime(metrics.MakeBidderRequests, time.Since(pbsRequestStartTime))
 
-	var (
-		// bidderResponseStartTime is the time at which we receive the response for the most recently processed bidder request
-		bidderResponseStartTime time.Time
-		mutex                   sync.RWMutex
-	)
+	var bidderResponseStartTime time.Time
 
 	for _, bidder := range bidderRequests {
 		// Here we actually call the adapters and collect the bids.
@@ -715,9 +711,7 @@ func (e *exchange) getAllBids(
 				ae.HttpCalls = seatBids[0].HttpCalls
 			}
 			if err == nil {
-				mutex.Lock()
-				bidderResponseStartTime = bidderRespStartTime
-				mutex.Unlock()
+				brw.bidderResponseStartTime = bidderRespStartTime
 			}
 			// Timing statistics
 			e.me.RecordAdapterTime(bidderRequest.BidderLabels, elapsed)
@@ -745,7 +739,8 @@ func (e *exchange) getAllBids(
 	// Wait for the bidders to do their thing
 	for i := 0; i < len(bidderRequests); i++ {
 		brw := <-chBids
-
+		// bidderResponseStartTime is the time at which we receive the response for the most recently processed bidder request
+		bidderResponseStartTime = brw.bidderResponseStartTime
 		//if bidder returned no bids back - remove bidder from further processing
 		for _, seatBid := range brw.adapterSeatBids {
 			if seatBid != nil {
