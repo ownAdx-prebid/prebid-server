@@ -3294,6 +3294,5 @@ func TestBidderTmaxTimeout(t *testing.T) {
 	tmaxAdjustments := &config.TmaxAdjustments{Enabled: true, PBSResponsePreparationDuration: 100, BidderNetworkLatencyBuffer: 10, BidderResponseDurationMin: 5000}
 
 	httpCallInfo := bidderAdapter.doRequestImpl(ctx, &bidRequest, logger, d2, tmaxAdjustments)
-	assert.NotNil(t, httpCallInfo.err)
 	assert.Equal(t, errTmaxTimeout, httpCallInfo.err)
 }
