@@ -114,6 +114,7 @@ const (
 	BidderAdView            BidderName = "adview"
 	BidderAdxcg             BidderName = "adxcg"
 	BidderAdyoulike         BidderName = "adyoulike"
+	BidderAidem             BidderName = "aidem"
 	BidderAJA               BidderName = "aja"
 	BidderAlgorix           BidderName = "algorix"
 	BidderAMX               BidderName = "amx"
@@ -174,6 +175,7 @@ const (
 	BidderGamma             BidderName = "gamma"
 	BidderGamoshi           BidderName = "gamoshi"
 	BidderGlobalsun         BidderName = "globalsun"
+	BidderGothamads         BidderName = "gothamads"
 	BidderGrid              BidderName = "grid"
 	BidderGumGum            BidderName = "gumgum"
 	BidderHuaweiAds         BidderName = "huaweiads"
@@ -219,6 +221,7 @@ const (
 	BidderOperaads          BidderName = "operaads"
 	BidderOrbidder          BidderName = "orbidder"
 	BidderOutbrain          BidderName = "outbrain"
+	BidderOwnAdx            BidderName = "ownadx"
 	BidderPangle            BidderName = "pangle"
 	BidderPGAM              BidderName = "pgam"
 	BidderPubmatic          BidderName = "pubmatic"
@@ -269,6 +272,7 @@ const (
 	BidderVisx              BidderName = "visx"
 	BidderVrtcal            BidderName = "vrtcal"
 	BidderXeworks           BidderName = "xeworks"
+	BidderYahooAds          BidderName = "yahooAds"
 	BidderYahooAdvertising  BidderName = "yahooAdvertising"
 	BidderYahooSSP          BidderName = "yahoossp"
 	BidderYeahmobi          BidderName = "yeahmobi"
@@ -310,6 +314,7 @@ func CoreBidderNames() []BidderName {
 		BidderAdView,
 		BidderAdxcg,
 		BidderAdyoulike,
+		BidderAidem,
 		BidderAJA,
 		BidderAlgorix,
 		BidderAMX,
@@ -370,6 +375,7 @@ func CoreBidderNames() []BidderName {
 		BidderGamma,
 		BidderGamoshi,
 		BidderGlobalsun,
+		BidderGothamads,
 		BidderGrid,
 		BidderGumGum,
 		BidderHuaweiAds,
@@ -415,6 +421,7 @@ func CoreBidderNames() []BidderName {
 		BidderOperaads,
 		BidderOrbidder,
 		BidderOutbrain,
+		BidderOwnAdx,
 		BidderPangle,
 		BidderPGAM,
 		BidderPubmatic,
@@ -465,6 +472,7 @@ func CoreBidderNames() []BidderName {
 		BidderVisx,
 		BidderVrtcal,
 		BidderXeworks,
+		BidderYahooAds,
 		BidderYahooAdvertising,
 		BidderYahooSSP,
 		BidderYeahmobi,
